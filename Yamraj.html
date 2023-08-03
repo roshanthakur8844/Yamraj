@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>पापो मिटर</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      animation: backgroundAnimation 10s infinite alternate;
+    }
+
+    @keyframes backgroundAnimation {
+      0% { background-color: #f0f0f0; }
+      50% { background-color: #ff4444; }
+      100% { background-color: #f0f0f0; }
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label, input, button {
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .meters {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .papa-meter, .punya-meter {
+      padding: 10px;
+      background-color: #f1f1f1;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      color: #333;
+      text-align: center;
+      font-weight: bold;
+      font-size: 20px;
+    }
+
+    .papa-meter {
+      color: #ff4444;
+    }
+
+    .punya-meter {
+      color: #4caf50;
+    }
+
+    /* Style the date of birth input */
+    input[type="date"] {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to the पापो मिटर !</h1>
+    <label for="name">Enter your name:</label>
+    <input type="text" id="name" placeholder="Your Name">
+    <label for="dob">Enter your date of birth:</label>
+    <input type="date" id="dob">
+    <button onclick="calculatePapaPunya()">Calculate</button>
+    <div class="meters">
+      <div class="papa-meter" id="papaMeter">पाप: <span id="papaValue">0</span>%</div>
+      <div class="punya-meter" id="punyaMeter">पुण्य: <span id="punyaValue">0</span>%</div>
+    </div>
+  </div>
+  <script>
+    function calculatePapaPunya() {
+      const name = document.getElementById('name').value;
+      const dob = document.getElementById('dob').value;
+      const papaValue = getRandomPercentage();
+      const punyaValue = getRandomPercentage();
+
+      animateMeter('papaMeter', papaValue);
+      animateMeter('punyaMeter', punyaValue);
+    }
+
+    function getRandomPercentage() {
+      return Math.floor(Math.random() * 100) + 1;
+    }
+
+    function animateMeter(meterId, value) {
+      const meter = document.getElementById(meterId);
+      const meterValue = meter.querySelector('span');
+      let current = 0;
+
+      const animationInterval = setInterval(() => {
+        current += 1;
+        if (current >= value) {
+          clearInterval(animationInterval);
+        }
+        meterValue.textContent = current;
+      }, 30);
+    }
+  </script>
+</body>
+</html>
